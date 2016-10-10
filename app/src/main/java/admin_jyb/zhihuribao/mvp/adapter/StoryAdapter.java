@@ -103,6 +103,7 @@ public class StoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             holderTopStory.vpTopStory.setAdapter(topStoryPagerAdapter);
 
             if (topStoryPagerAdapter != null && topStoryPagerAdapter.getCount() > 0) {
+                holderTopStory.point_ll.removeAllViews();
                 for (int i = 0; i < topStoryPagerAdapter.getCount(); i++) {
                     ImageView gray_point = new ImageView(context);
                     gray_point.setBackgroundResource(R.drawable.shape_gray_point);
