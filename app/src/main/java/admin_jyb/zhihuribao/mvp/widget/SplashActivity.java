@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 import admin_jyb.zhihuribao.R;
 import admin_jyb.zhihuribao.mvp.presenter.Impl.SplashPresenterImpl;
 import admin_jyb.zhihuribao.mvp.view.SplashView;
+import admin_jyb.zhihuribao.util.SpUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Observable;
@@ -46,8 +47,13 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
                 .subscribe(new Action1<Long>() {
                     @Override
                     public void call(Long aLong) {
-                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                        finish();
+                        if (SpUtil.getIntance(getBaseContext()).getUsername() == ""){
+                            startActivity(new Intent(SplashActivity.this,LoginActivity.class));
+                            finish();
+                        }else {
+                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                            finish();
+                        }
                     }
                 });
     }
