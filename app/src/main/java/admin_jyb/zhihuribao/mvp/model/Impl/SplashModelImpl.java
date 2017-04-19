@@ -34,7 +34,11 @@ public class SplashModelImpl implements SplashModel {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        StartImage startImage = new StartImage();
+                        startImage.setText("知乎日报");
+                        startImage.setImg("https://pic1.zhimg.com/v2-0bf26092e8bd38a59d08dc9326fe5ca8.jpg");
+                        presenter.sendImageToView(startImage);
+                        onCompleted();
                     }
 
                     @Override
