@@ -99,6 +99,11 @@ public class MainActivity extends AppCompatActivity implements MainView{
         transaction.replace(R.id.content,newFragment).commit();
     }
 
+    @Override
+    public void exit() {
+        finish();
+    }
+
     /**
      *  关联drawerlayout和toolbar
      */

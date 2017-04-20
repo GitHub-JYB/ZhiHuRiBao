@@ -2,10 +2,12 @@ package admin_jyb.zhihuribao.mvp.presenter.Impl;
 
 import android.view.MenuItem;
 
+import admin_jyb.zhihuribao.Application.MyApplication;
 import admin_jyb.zhihuribao.R;
 import admin_jyb.zhihuribao.mvp.presenter.MainPresenter;
 import admin_jyb.zhihuribao.mvp.view.MainView;
 import admin_jyb.zhihuribao.mvp.widget.HomeFragment;
+import admin_jyb.zhihuribao.util.SpUtil;
 
 /**
  * Created by Admin-JYB on 2016/9/26.
@@ -27,6 +29,9 @@ public class MainPresenterImpl implements MainPresenter {
                     mainView.replaceFragment(null, HomeFragment.getInstance());
                 }
                 break;
+            case R.id.nav_exit:
+                SpUtil.getIntance(MyApplication.getInstance()).setUsername("");
+                mainView.exit();
         }
         item.setChecked(true);
         mainView.closeDrawers();

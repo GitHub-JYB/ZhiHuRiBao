@@ -14,4 +14,6 @@ public interface MainView extends HomeFragment.OnReplaceFragmentListener{
     void closeDrawers();
 
     void replaceFragment(Fragment oldFragment, Fragment newFragment);
+
+    void exit();
 }
