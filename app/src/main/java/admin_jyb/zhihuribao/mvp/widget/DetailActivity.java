@@ -1,8 +1,10 @@
 package admin_jyb.zhihuribao.mvp.widget;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Admin-JYB on 2016/9/28.
  */
-public class DetailFragment extends Fragment implements DetailView {
+public class DetailActivity extends AppCompatActivity implements DetailView {
 
     @BindView(R.id.iv_story_header)
     ImageView ivStoryHeader;
@@ -36,42 +38,18 @@ public class DetailFragment extends Fragment implements DetailView {
     private DetailPresenterImpl presenter;
     private int storyId;
 
-    public DetailFragment() {
-    }
-
-    private static DetailFragment instance = new DetailFragment();
-
-    public static DetailFragment getInstance(int storyId) {
-        if (instance == null) {
-            synchronized (HomeFragment.class) {
-                if (instance == null) {
-                    instance = new DetailFragment();
-                }
-            }
-        }
-        Bundle bundle = new Bundle();
-        bundle.putInt("storyId", storyId);
-        instance.setArguments(bundle);
-        return instance;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_story_detail);
+        ButterKnife.bind(this);
         presenter = new DetailPresenterImpl(this);
-        if (getArguments() != null) {
-            storyId = getArguments().getInt("storyId");
+        Intent intent = getIntent();
+        storyId = intent.getIntExtra("storyId",0);
+        if (storyId != 0) {
+            presenter.getStoryFromModel(storyId);
         }
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
-            Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_story_detail, container, false);
-        ButterKnife.bind(this, view);
-        presenter.getStoryFromModel(storyId);
-        return view;
     }
 
     @Override
@@ -80,7 +58,7 @@ public class DetailFragment extends Fragment implements DetailView {
         wbStory.loadDataWithBaseURL("file:///android_assets/",body,"text/html","UTF-8","");
         tvStoryTitle.setText(stories.getTitle());
         tvCopyright.setText(stories.getImage_source());
-        Picasso.with(getContext())
+        Picasso.with(getBaseContext())
                 .load(stories.getImage())
                 .fit()
                 .centerCrop()

@@ -23,7 +23,7 @@ public class HomeModelImpl implements HomeModel {
 
     @Override
     public void getStories() {
-        ApiClient.getService()
+        ApiClient.getService(ApiClient.BASE_URL)
                 .getZhiHu()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -48,7 +48,7 @@ public class HomeModelImpl implements HomeModel {
     @Override
     public void getBeforeStories(String previousDay) {
 
-        ApiClient.getService()
+        ApiClient.getService(ApiClient.BASE_URL)
                 .getBeforeZhiHu(previousDay)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

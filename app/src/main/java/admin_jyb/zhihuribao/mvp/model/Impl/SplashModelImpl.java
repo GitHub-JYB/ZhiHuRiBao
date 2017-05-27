@@ -22,7 +22,7 @@ public class SplashModelImpl implements SplashModel {
 
     @Override
     public void getStartImage() {
-        ApiClient.getService()
+        ApiClient.getService(ApiClient.BASE_URL)
                 .getStartImage()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

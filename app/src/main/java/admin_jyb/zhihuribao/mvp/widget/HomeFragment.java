@@ -1,12 +1,14 @@
 package admin_jyb.zhihuribao.mvp.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +36,7 @@ public class HomeFragment extends Fragment implements HomeView{
     SwipeRefreshLayout refreshLayout;
     private HomePresenterImpl presenter;
     private StoryAdapter storyAdapter;
-    private OnReplaceFragmentListener listener;
+    private Context context;
 
     public HomeFragment() {
     }
@@ -86,7 +88,6 @@ public class HomeFragment extends Fragment implements HomeView{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
 
-
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
         initRefreshLayout();
@@ -109,7 +110,9 @@ public class HomeFragment extends Fragment implements HomeView{
         storyAdapter.setOnClickListener(new StoryAdapter.OnClickListener() {
             @Override
             public void onClick(int storyId) {
-                listener.onReplaceFragment(HomeFragment.this,storyId);
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                intent.putExtra("storyId",storyId);
+                context.startActivity(intent);
             }
         });
     }
@@ -137,19 +140,6 @@ public class HomeFragment extends Fragment implements HomeView{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnReplaceFragmentListener){
-            listener = (OnReplaceFragmentListener) context;
-        }
+        this.context = context;
     }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        listener = null;
-    }
-
-    public interface OnReplaceFragmentListener {
-        void onReplaceFragment(HomeFragment homeFragment,int storyId);
-    }
-
 }

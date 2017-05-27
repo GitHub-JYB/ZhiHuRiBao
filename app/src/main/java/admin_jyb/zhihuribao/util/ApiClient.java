@@ -1,5 +1,6 @@
 package admin_jyb.zhihuribao.util;
 
+import admin_jyb.zhihuribao.bean.Girl;
 import admin_jyb.zhihuribao.bean.StartImage;
 import admin_jyb.zhihuribao.bean.ZhiHu;
 import retrofit2.Retrofit;
@@ -7,6 +8,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -15,11 +17,15 @@ import rx.Observable;
 
 public class ApiClient {
 
-    private static final String BASE_URL = "http://news-at.zhihu.com/api/4/";
+    public static final String BASE_URL = "http://news-at.zhihu.com/api/4/";
+    public static final String Gril_URL = "http://image.baidu.com/data/";
 
     private static Retrofit retrofit = null;
 
     public interface ApiService{
+
+        @GET("imgs?col=美女&tag=美女&sort=0&pn=20&rn=20&p=channel&from=1")
+        Observable<Girl>getGirl();
 
         @GET("start-image/1080*1776")
         Observable<StartImage> getStartImage();
@@ -34,19 +40,27 @@ public class ApiClient {
         Observable<ZhiHu.Stories> getStories(@Path("id") int id);
     }
 
-    private static Retrofit getClient(){
+    private static Retrofit getClient(String url){
         if (retrofit == null){
             retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
+                    .baseUrl(url)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();
+        }else{
+            if (!url.equals(BASE_URL)){
+                retrofit = new Retrofit.Builder()
+                        .baseUrl(url)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                        .build();
+            }
         }
         return retrofit;
     }
 
-    public static ApiService getService(){
-        return getClient().create(ApiService.class);
+    public static ApiService getService(String url){
+        return getClient(url).create(ApiService.class);
     }
 
 }

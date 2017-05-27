@@ -21,7 +21,7 @@ public class DetailModelImpl implements DetailModel {
 
     @Override
     public void getStory(int storyId) {
-        ApiClient.getService()
+        ApiClient.getService(ApiClient.BASE_URL)
                 .getStories(storyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -33,7 +33,7 @@ public class DetailModelImpl implements DetailModel {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        e.printStackTrace();
                     }
 
                     @Override

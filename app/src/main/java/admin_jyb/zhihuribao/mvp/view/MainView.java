@@ -9,7 +9,7 @@ import admin_jyb.zhihuribao.mvp.widget.HomeFragment;
  * Created by Admin-JYB on 2016/9/26.
  */
 
-public interface MainView extends HomeFragment.OnReplaceFragmentListener{
+public interface MainView {
 
     void closeDrawers();
 

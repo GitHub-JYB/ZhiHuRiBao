@@ -1,5 +1,6 @@
 package admin_jyb.zhihuribao.mvp.widget;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -93,14 +94,25 @@ public class MainActivity extends AppCompatActivity implements MainView{
     @Override
     public void replaceFragment(Fragment oldFragment, Fragment newFragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (newFragment instanceof DetailFragment){
-            transaction.hide(oldFragment).addToBackStack(null);
+        if (!newFragment.isAdded()){
+            if (oldFragment != null){
+                transaction.hide(oldFragment).add(R.id.content,newFragment).commit();
+            }else {
+                transaction.add(R.id.content,newFragment).commit();
+            }
+        }else {
+            if (oldFragment != null){
+                transaction.hide(oldFragment).show(newFragment).commit();
+            }else {
+                transaction.show(newFragment).commit();
+            }
         }
-        transaction.replace(R.id.content,newFragment).commit();
     }
 
     @Override
     public void exit() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
         finish();
     }
 
@@ -114,12 +126,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
     }
 
     private void initToolbar() {
-        toolbar.setTitle("首页");
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
-    }
-
-    @Override
-    public void onReplaceFragment(HomeFragment homeFragment, int storyId) {
-        replaceFragment(homeFragment,DetailFragment.getInstance(storyId));
     }
 }
