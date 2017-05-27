@@ -43,9 +43,6 @@ public class ZhiHu {
 
     public static class Stories {
         private String title;
-        private String ga_prefix;
-        private boolean multipic;
-        private int type;
         private int id;
         private String body;
         private String image;
@@ -85,30 +82,6 @@ public class ZhiHu {
             this.title = title;
         }
 
-        public String getGa_prefix() {
-            return ga_prefix;
-        }
-
-        public void setGa_prefix(String ga_prefix) {
-            this.ga_prefix = ga_prefix;
-        }
-
-        public boolean isMultipic() {
-            return multipic;
-        }
-
-        public void setMultipic(boolean multipic) {
-            this.multipic = multipic;
-        }
-
-        public int getType() {
-            return type;
-        }
-
-        public void setType(int type) {
-            this.type = type;
-        }
-
         public int getId() {
             return id;
         }
@@ -128,9 +101,7 @@ public class ZhiHu {
 
     public static class TopStories {
         private String image;
-        private int type;
         private int id;
-        private String ga_prefix;
         private String title;
 
         public String getImage() {
@@ -141,28 +112,12 @@ public class ZhiHu {
             this.image = image;
         }
 
-        public int getType() {
-            return type;
-        }
-
-        public void setType(int type) {
-            this.type = type;
-        }
-
         public int getId() {
             return id;
         }
 
         public void setId(int id) {
             this.id = id;
-        }
-
-        public String getGa_prefix() {
-            return ga_prefix;
-        }
-
-        public void setGa_prefix(String ga_prefix) {
-            this.ga_prefix = ga_prefix;
         }
 
         public String getTitle() {

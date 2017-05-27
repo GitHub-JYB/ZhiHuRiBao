@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -19,6 +20,7 @@ import android.widget.FrameLayout;
 import admin_jyb.zhihuribao.R;
 import admin_jyb.zhihuribao.mvp.presenter.Impl.MainPresenterImpl;
 import admin_jyb.zhihuribao.mvp.view.MainView;
+import admin_jyb.zhihuribao.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
     DrawerLayout drawerlayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private MainPresenterImpl presenter;
+    private long exitTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,5 +131,20 @@ public class MainActivity extends AppCompatActivity implements MainView{
     private void initToolbar() {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if((System.currentTimeMillis()-exitTime) > 2000){
+                ToastUtil.showShortToast("再按一次退出程序");
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

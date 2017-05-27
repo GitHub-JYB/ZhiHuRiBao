@@ -41,20 +41,18 @@ public class ApiClient {
     }
 
     private static Retrofit getClient(String url){
-        if (retrofit == null){
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(url)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    .build();
-        }else{
-            if (!url.equals(BASE_URL)){
+        if (url.equals(BASE_URL)){
                 retrofit = new Retrofit.Builder()
-                        .baseUrl(url)
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                         .build();
-            }
+        }else if (url.equals(Gril_URL)){
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(Gril_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .build();
         }
         return retrofit;
     }

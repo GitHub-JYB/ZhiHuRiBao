@@ -34,6 +34,7 @@
         <activity android:name=".mvp.widget.LoginActivity"/>
         <activity android:name=".mvp.widget.RegisterActivity"/>
         <activity android:name=".mvp.widget.DetailActivity"/>
+        <activity android:name=".mvp.widget.GirlDetailActivity"/>
     </application>
 
 </manifest>
