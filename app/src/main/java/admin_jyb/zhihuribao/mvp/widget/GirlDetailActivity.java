@@ -40,7 +40,7 @@ public class GirlDetailActivity extends AppCompatActivity {
                 .load(url)
                 .placeholder(R.drawable.login_wallpaper2)
                 .error(R.drawable.login_wallpaper2)
-                .resize(MyApplication.widthPixels,MyApplication.heightPixels)
+                .resize(MyApplication.widthPixels,MyApplication.heightPixels - MyApplication.statusHight)
                 .into(girlBigImage);
         girlDetailDesc.setTextColor(getResources().getColor(android.R.color.white));
         girlDetailDesc.setTextSize(24);

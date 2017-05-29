@@ -25,6 +25,8 @@ import rx.schedulers.Schedulers;
 
 public class SplashActivity extends AppCompatActivity implements SplashView {
 
+    @BindView(R.id.iv_logo)
+    ImageView iv_logo;
     @BindView(R.id.iv)
     ImageView iv;
     @BindView(R.id.text)
@@ -41,7 +43,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
     }
 
     private void finishSplash() {
-        Observable.timer(2000, TimeUnit.MILLISECONDS)
+        Observable.timer(3000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Long>() {
@@ -72,7 +74,10 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
     @Override
     public void showAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_splash);
+        Animation animation1 = AnimationUtils.loadAnimation(this, R.anim.anim_splash_logo);
         iv.startAnimation(animation);
+        iv_logo.startAnimation(animation1);
+        text.startAnimation(animation1);
         finishSplash();
 
     }

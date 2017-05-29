@@ -44,7 +44,7 @@ public class GirlAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 .load(grillist.get(position).getImageUrl())
                 .placeholder(R.drawable.login_wallpaper2)
                 .error(R.drawable.login_wallpaper2)
-                .resize(MyApplication.widthPixels/2,mHeight.get(position))
+                .resize(MyApplication.widthPixels/2 - MyApplication.dip2px(16),mHeight.get(position))
                 .into(((ViewHolderGirl)holder).imageView);
         ((ViewHolderGirl)holder).textView.setText(grillist.get(position).getDesc());
     }
